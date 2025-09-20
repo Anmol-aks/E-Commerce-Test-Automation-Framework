@@ -18,8 +18,8 @@ public class CartPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
-        // Wait for the checkout button to be visible when the page object is created
-        wait.until(ExpectedConditions.visibilityOf(checkoutButton));
+        // THE FIX: Wait for the button to be clickable, not just visible.
+        wait.until(ExpectedConditions.elementToBeClickable(checkoutButton));
     }
 
     @FindBy(id = "checkout")

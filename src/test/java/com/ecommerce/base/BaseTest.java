@@ -20,25 +20,22 @@ public class BaseTest {
     public void setup(String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
-            // Create ChromeOptions object
             ChromeOptions chromeOptions = new ChromeOptions();
-            // Add the headless argument
+            // Standard arguments for stable headless execution in CI/CD
             chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("--window-size=1920,1080");
-            // Pass the options into the new ChromeDriver
+            chromeOptions.addArguments("--no-sandbox");
+            chromeOptions.addArguments("--disable-dev-shm-usage");
+            chromeOptions.addArguments("--disable-gpu");
             driver = new ChromeDriver(chromeOptions);
         } else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
-            // Create FirefoxOptions object
             FirefoxOptions firefoxOptions = new FirefoxOptions();
-            // Add the headless argument
             firefoxOptions.addArguments("--headless");
-            // Pass the options into the new FirefoxDriver
             firefoxOptions.addArguments("--width=1920");
             firefoxOptions.addArguments("--height=1080");
             driver = new FirefoxDriver(firefoxOptions);
         } else if (browser.equalsIgnoreCase("edge")) {
-            // Note: Headless for Edge can sometimes be less stable
             WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
         }

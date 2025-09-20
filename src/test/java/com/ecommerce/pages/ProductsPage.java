@@ -12,17 +12,14 @@ import java.time.Duration;
 public class ProductsPage {
 
     WebDriver driver;
-    WebDriverWait wait; // <-- DECLARE A WAIT OBJECT
+    WebDriverWait wait;
 
-    // Constructor
     public ProductsPage(WebDriver driver) {
         this.driver = driver;
-        // Initialize the WebDriverWait for a 10-second timeout
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // INITIALIZE THE WAIT
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
-    // Locators
     @FindBy(id = "add-to-cart-sauce-labs-backpack")
     private WebElement backpackAddToCartButton;
 
@@ -32,19 +29,20 @@ public class ProductsPage {
     @FindBy(className = "shopping_cart_link")
     private WebElement shoppingCartLink;
 
-    // Action Methods
     public void addBackpackToCart() {
+        // THE FIX: Wait for the button to be clickable before clicking.
+        wait.until(ExpectedConditions.elementToBeClickable(backpackAddToCartButton));
         backpackAddToCartButton.click();
-        //Wait until the shopping cart badge is visible on the page
+        // The wait for the badge is still needed after the click.
         wait.until(ExpectedConditions.visibilityOf(shoppingCartBadge));
     }
 
     public String getCartItemCount() {
-        // the badge is present
         return shoppingCartBadge.getText();
     }
 
     public void goToCart() {
+        wait.until(ExpectedConditions.elementToBeClickable(shoppingCartLink));
         shoppingCartLink.click();
     }
 }
