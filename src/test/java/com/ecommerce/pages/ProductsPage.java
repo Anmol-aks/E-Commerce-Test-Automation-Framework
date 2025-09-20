@@ -1,5 +1,6 @@
 package com.ecommerce.pages;
 
+import org.openqa.selenium.JavascriptExecutor; // <-- IMPORT THIS
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,9 +31,12 @@ public class ProductsPage {
     private WebElement shoppingCartLink;
 
     public void addBackpackToCart() {
-        // THE FIX: Wait for the button to be clickable before clicking.
         wait.until(ExpectedConditions.elementToBeClickable(backpackAddToCartButton));
-        backpackAddToCartButton.click();
+
+        // THIS IS THE FIX: Use JavascriptExecutor for a more reliable click
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", backpackAddToCartButton);
+
         // The wait for the badge is still needed after the click.
         wait.until(ExpectedConditions.visibilityOf(shoppingCartBadge));
     }
@@ -43,6 +47,9 @@ public class ProductsPage {
 
     public void goToCart() {
         wait.until(ExpectedConditions.elementToBeClickable(shoppingCartLink));
-        shoppingCartLink.click();
+
+        // Applying the same robust click method here for consistency
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", shoppingCartLink);
     }
 }
