@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="ECommerceCrossBrowserSuite" parallel="tests" thread-count="3">
+
+
+    <test name="ChromeTests">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.ecommerce.tests.LoginTest"/>
+            <class name="com.ecommerce.tests.AddToCartTest"/>
+            <class name="com.ecommerce.tests.CheckoutTest"/>
+        </classes>
+    </test>
+
+    <test name="FirefoxTests">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.ecommerce.tests.LoginTest"/>
+            <class name="com.ecommerce.tests.AddToCartTest"/>
+            <class name="com.ecommerce.tests.CheckoutTest"/>
+        </classes>
+    </test>
+
+    <test name="ApiTests">
+        <classes>
+            <class name="com.ecommerce.tests.ApiTest"/>
+        </classes>
+    </test>
+
+</suite>
