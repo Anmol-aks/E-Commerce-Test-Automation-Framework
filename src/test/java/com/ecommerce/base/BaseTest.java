@@ -24,6 +24,7 @@ public class BaseTest {
             ChromeOptions chromeOptions = new ChromeOptions();
             // Add the headless argument
             chromeOptions.addArguments("--headless");
+            chromeOptions.addArguments("--window-size=1920,1080");
             // Pass the options into the new ChromeDriver
             driver = new ChromeDriver(chromeOptions);
         } else if (browser.equalsIgnoreCase("firefox")) {
@@ -33,6 +34,8 @@ public class BaseTest {
             // Add the headless argument
             firefoxOptions.addArguments("--headless");
             // Pass the options into the new FirefoxDriver
+            firefoxOptions.addArguments("--width=1920");
+            firefoxOptions.addArguments("--height=1080");
             driver = new FirefoxDriver(firefoxOptions);
         } else if (browser.equalsIgnoreCase("edge")) {
             // Note: Headless for Edge can sometimes be less stable
